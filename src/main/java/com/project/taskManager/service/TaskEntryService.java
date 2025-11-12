@@ -37,7 +37,7 @@ public class TaskEntryService {
                         log.error("Error : ",e);
                         throw new RuntimeException("An error occurred while saving the entry.",e);
                 }
-        } 
+        }
         public void saveEntry(TaskEntry taskEntry){
                 taskEntryRepository.save(taskEntry);
         }
