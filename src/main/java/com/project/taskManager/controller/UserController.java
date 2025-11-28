@@ -1,7 +1,9 @@
 package com.project.taskManager.controller;
+import com.project.taskManager.api.response.WeatherResponse;
 import com.project.taskManager.entity.User;
 import com.project.taskManager.repository.UserRepository;
 import com.project.taskManager.service.UserService;
+import com.project.taskManager.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WeatherService weatherService;
 
 //    @GetMapping
 //    public List<User> getAll(){
@@ -46,5 +51,16 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepository.deleteByUserName(authentication.getName());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping
+    public ResponseEntity<?> greeting(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse weatherResponse = weatherService.getWeather("MUMBAI");
+        String greeting = "";
+        if(weatherResponse != null){
+            greeting = ", Weather feels like "+weatherResponse.getCurrent().feelslike;
+        }
+
+        return new ResponseEntity<>("Hi, "+authentication.getName()+ greeting, HttpStatus.OK);
     }
 }

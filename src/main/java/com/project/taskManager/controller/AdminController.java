@@ -1,5 +1,6 @@
 package com.project.taskManager.controller;
 
+import com.project.taskManager.cache.AppCache;
 import com.project.taskManager.entity.User;
 import com.project.taskManager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AppCache appCache;
+
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers(){
         List<User> all = userService.getAll();
@@ -29,4 +33,8 @@ public class AdminController {
         userService.saveAdmin(user);
     }
 
+    @GetMapping("clear-app-cache")
+    public void clearAppCache(){
+        appCache.init();
+    }
 }

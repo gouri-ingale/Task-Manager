@@ -31,6 +31,9 @@ public class User {
     @NotBlank(message = "Username is required and cannot be empty.")
     private String password;
 
+    private String email;
+    private boolean sentimentAnalysis;
+
     @DBRef
     private List<TaskEntry> taskEntries = new ArrayList<>();
 
