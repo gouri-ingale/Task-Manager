@@ -1,5 +1,6 @@
 package com.project.taskManager.entity;
 
+import com.project.taskManager.enums.Sentiment;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -24,5 +25,5 @@ public class TaskEntry { //instance of TaskEntry will be equal to a document, i.
     private String content;
 
     private LocalDateTime date;
-
+    private Sentiment sentiment;
 }
